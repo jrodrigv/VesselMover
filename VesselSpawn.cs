@@ -5,6 +5,7 @@ using System.Linq;
 using KSP.UI;
 using UnityEngine;
 using KSP.UI.Screens;
+using KSP.Localization;
 
 
 namespace VesselMover
@@ -95,12 +96,12 @@ namespace VesselMover
 
       if (openingCraftBrowser)
       {
-        DrawShadowedMessage("Opening Craft Browser...");
+        DrawShadowedMessage(Localizer.Format("#VesselMover_Msg1"));//"Opening Craft Browser..."
       }
 
       if (IsSelectingCrew)
       {
-        DrawShadowedMessage("Opening Crew Selection...");
+        DrawShadowedMessage(Localizer.Format("#VesselMover_Msg2"));//"Opening Crew Selection..."
       }
 
       if (IsCrewSelected)
@@ -112,12 +113,12 @@ namespace VesselMover
 
       if (choosingPosition)
       {
-        DrawShadowedMessage("Click somewhere to spawn!");
+        DrawShadowedMessage(Localizer.Format("#VesselMover_Msg3"));//"Click somewhere to spawn!"
       }
 
       if (loadingCraft)
       {
-        DrawShadowedMessage("Loading Craft...");
+        DrawShadowedMessage(Localizer.Format("#VesselMover_Msg4"));//"Loading Craft..."
       }
     }
 
