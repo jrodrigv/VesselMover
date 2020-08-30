@@ -1,7 +1,7 @@
 {
   "NAME": "VesselMover",
   "URL": "https://github.com/jrodrigv/VesselMover/blob/master/Distribution/GameData/VesselMover/VesselMover.version",
-  "DOWNLOAD": "https://github.com/jrodrigv/VesselMover/releases/tag/1.9.0",
+  "DOWNLOAD": "https://github.com/jrodrigv/VesselMover/releases/tag/1.10.0",
   "GITHUB": {
     "USERNAME": "jrodrigv",
     "REPOSITORY": "VesselMover",
@@ -9,23 +9,23 @@
   },
   "VERSION": {
     "MAJOR": 1,
-    "MINOR": 9,
+    "MINOR": 10,
     "PATCH": 0,
     "BUILD": 0
   },
   "KSP_VERSION": {
     "MAJOR": 1,
-    "MINOR": 9,
-    "PATCH": 0
+    "MINOR": 10,
+    "PATCH": 1
   },
   "KSP_VERSION_MIN": {
     "MAJOR": 1,
-    "MINOR": 9,
-    "PATCH": 0
+    "MINOR": 10,
+    "PATCH": 1
   },
   "KSP_VERSION_MAX": {
     "MAJOR": 1,
-    "MINOR": 9,
+    "MINOR": 10,
     "PATCH": 99
   }
 }
