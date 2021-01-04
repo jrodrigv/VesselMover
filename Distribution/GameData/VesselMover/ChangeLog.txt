@@ -1,3 +1,7 @@
+v1.11.0
+* New:
+  * Recompiled for KSP 1.11
+
 v1.10.0
 * New:
   * Recompiled for KSP 1.10.1
