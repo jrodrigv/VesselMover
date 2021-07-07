@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using KSP.UI.Screens;
+using KSP.Localization;
 
 namespace VesselMover
 {
@@ -65,25 +66,25 @@ namespace VesselMover
 
       if (ShowUI && addCrewMembers && VesselSpawn.IsSelectingCrew)
       {
-        _crewSelectRect = GUILayout.Window(401239, _crewSelectRect, CrewSelectionWindow, "Select Crew", HighLogic.Skin.window);
+        _crewSelectRect = GUILayout.Window(401239, _crewSelectRect, CrewSelectionWindow, Localizer.Format("#VesselMover_SelectCrew"), HighLogic.Skin.window);//"Select Crew"
         if (!latch) Debug.Log(_crewSelectRect.ToString());
         latch = true;
       }
 
       if (!ShowUI || !toolbarGuiEnabled || !VesselMove.Instance || !VesselSpawn.instance ||
           VesselSpawn.instance.openingCraftBrowser || VesselSpawn.IsSelectingCrew) return;
-      toolbarRect = GUI.Window(401240, toolbarRect, ToolbarWindow, "Vessel Mover", HighLogic.Skin.window);
+      toolbarRect = GUI.Window(401240, toolbarRect, ToolbarWindow, Localizer.Format("#VesselMover_VesselMover"), HighLogic.Skin.window);//"Vessel Mover"
 
       if (!VesselMove.Instance.IsMovingVessel)
       {
         if (!MouseIsInRect(svRectScreenSpace)) return;
         Vector2 mousePos = MouseGUIPos();
         //Rect warningRect = new Rect(mousePos.x + 5, mousePos.y + 20, 200, 60);
-        ShowToolTip(mousePos, "WARNING: Experimental. Launch clamps may be broken.");
+        ShowToolTip(mousePos, Localizer.Format("#VesselMover_WARNING"));//"WARNING: Experimental. Launch clamps may be broken."
       }
       else if (showMoveHelp)
       {
-        GUI.Window(401241, new Rect(toolbarRect.x, toolbarRect.y + toolbarRect.height, toolbarRect.width, helpHeight), MoveHelp, "Controls", HighLogic.Skin.window);
+        GUI.Window(401241, new Rect(toolbarRect.x, toolbarRect.y + toolbarRect.height, toolbarRect.width, helpHeight), MoveHelp, Localizer.Format("#VesselMover_Controls"), HighLogic.Skin.window);//"Controls"
       }
 
     }
@@ -97,7 +98,7 @@ namespace VesselMover
       {
         if (!VesselMove.Instance.IsMovingVessel)
         {
-          if (GUI.Button(LineRect(ref line, 1.5f), "Move Vessel", HighLogic.Skin.button))
+          if (GUI.Button(LineRect(ref line, 1.5f), Localizer.Format("#VesselMover_MoveVessel"), HighLogic.Skin.button))//"Move Vessel"
           {
             VesselMove.Instance.StartMove(FlightGlobals.ActiveVessel, true);
           }
@@ -108,7 +109,7 @@ namespace VesselMover
           svRectScreenSpace.x += toolbarRect.x;
           svRectScreenSpace.y += toolbarRect.y;
 
-          if (GUI.Button(spawnVesselRect, "Spawn Vessel", HighLogic.Skin.button))
+          if (GUI.Button(spawnVesselRect, Localizer.Format("#VesselMover_SpawnVessel"), HighLogic.Skin.button))//"Spawn Vessel"
           {
             VesselSpawn.instance.StartVesselSpawn();
           }
@@ -120,29 +121,29 @@ namespace VesselMover
           svCrewScreenSpace = new Rect(crewRect1);
           svCrewScreenSpace.x += toolbarRect.x;
           svCrewScreenSpace.y += toolbarRect.y;
-          addCrewMembers = GUI.Toggle(crewRect1, addCrewMembers, "Spawn Crew");
+          addCrewMembers = GUI.Toggle(crewRect1, addCrewMembers, Localizer.Format("#VesselMover_SpawnCrew"));//"Spawn Crew"
           if (!addCrewMembers) GUI.enabled = false;
-          selectCrewMembers = GUI.Toggle(crewRect2, selectCrewMembers, "Choose Crew");
+          selectCrewMembers = GUI.Toggle(crewRect2, selectCrewMembers, Localizer.Format("#VesselMover_ChooseCrew"));//"Choose Crew"
           GUI.enabled = true;
           showMoveHelp = false;
         }
         else
         {
-          if (GUI.Button(LineRect(ref line, 2), "Place Vessel", HighLogic.Skin.button))
+          if (GUI.Button(LineRect(ref line, 2), Localizer.Format("#VesselMover_PlaceVessel"), HighLogic.Skin.button))//"Place Vessel"
           {
             VesselMove.Instance.EndMove();
           }
 
           line += 0.3f;
 
-          if (GUI.Button(LineRect(ref line, 2), "Drop Vessel", HighLogic.Skin.button))
+          if (GUI.Button(LineRect(ref line, 2), Localizer.Format("#VesselMover_DropVessel"), HighLogic.Skin.button))//"Drop Vessel"
           {
             VesselMove.Instance.DropMove();
           }
 
           line += 0.3f;
 
-          if (GUI.Button(LineRect(ref line), "Help", HighLogic.Skin.button))
+          if (GUI.Button(LineRect(ref line), Localizer.Format("#VesselMover_Help"), HighLogic.Skin.button))//"Help"
           {
             showMoveHelp = !showMoveHelp;
           }
@@ -152,7 +153,7 @@ namespace VesselMover
       {
         GUIStyle centerLabelStyle = new GUIStyle(HighLogic.Skin.label);
         centerLabelStyle.alignment = TextAnchor.UpperCenter;
-        GUI.Label(LineRect(ref line), "You need to be landed to use this!", centerLabelStyle);
+        GUI.Label(LineRect(ref line), Localizer.Format("#VesselMover_Msg"), centerLabelStyle);//"You need to be landed to use this!"
       }
 
       toolbarRect.height = (line * toolbarLineHeight) + (toolbarMargin * 2);
@@ -186,7 +187,7 @@ namespace VesselMover
       kerbals.Dispose();
       GUILayout.EndScrollView();
       GUILayout.Space(20);
-      if (GUILayout.Button("Select", HighLogic.Skin.button))
+      if (GUILayout.Button(Localizer.Format("#VesselMover_Select"), HighLogic.Skin.button))//"Select"
       {
         VesselSpawn.SelectedCrewData = SelectedCrewMembers;
         VesselSpawn.IsSelectingCrew = false;
@@ -206,21 +207,21 @@ namespace VesselMover
     {
       float line = 0;
       line += 1.25f;
-      LineLabel("Movement: " + GameSettings.PITCH_DOWN.primary.ToString() + " " +
+      LineLabel(Localizer.Format("#VesselMover_Movement") +" " + GameSettings.PITCH_DOWN.primary.ToString() + " " +//"Movement: "
         GameSettings.PITCH_UP.primary.ToString() + " " +
         GameSettings.YAW_LEFT.primary.ToString() + " " +
         GameSettings.YAW_RIGHT.primary.ToString(), ref line);
-      LineLabel("Roll: " + GameSettings.ROLL_LEFT.primary.ToString() + " " +
+      LineLabel(Localizer.Format("#VesselMover_Roll") + " " + GameSettings.ROLL_LEFT.primary.ToString() + " " +//"Roll: "
         GameSettings.ROLL_RIGHT.primary.ToString(), ref line);
-      LineLabel("Pitch: " + GameSettings.TRANSLATE_DOWN.primary.ToString() + " " +
+      LineLabel(Localizer.Format("#VesselMover_Pitch") + " " + GameSettings.TRANSLATE_DOWN.primary.ToString() + " " +//"Pitch: "
         GameSettings.TRANSLATE_UP.primary.ToString(), ref line);
-      LineLabel("Yaw: " + GameSettings.TRANSLATE_LEFT.primary.ToString() + " " +
+      LineLabel(Localizer.Format("#VesselMover_Yaw") + " " + GameSettings.TRANSLATE_LEFT.primary.ToString() + " " +//"Yaw: "
         GameSettings.TRANSLATE_RIGHT.primary.ToString(), ref line);
-      LineLabel("Auto rotate rocket: " + GameSettings.TRANSLATE_BACK.primary.ToString(), ref line);
-      LineLabel("Auto rotate plane: " + GameSettings.TRANSLATE_FWD.primary.ToString(), ref line);
-      LineLabel("Change movement mode: Tab", ref line);
-      LineLabel("Reset Altitude: " + GameSettings.THROTTLE_CUTOFF.primary.ToString(), ref line);
-      LineLabel("Adjust Altitude: " + GameSettings.THROTTLE_UP.primary.ToString() + " " +
+      LineLabel(Localizer.Format("#VesselMover_AutoRotateR") + " " + GameSettings.TRANSLATE_BACK.primary.ToString(), ref line);//"Auto rotate rocket: "
+      LineLabel(Localizer.Format("#VesselMover_AutoRotateP") + " " + GameSettings.TRANSLATE_FWD.primary.ToString(), ref line);//"Auto rotate plane: "
+      LineLabel(Localizer.Format("#VesselMover_ChangeMovementMode"), ref line);//"Change movement mode: Tab"
+      LineLabel(Localizer.Format("#VesselMover_ResetAltitude") + " " + GameSettings.THROTTLE_CUTOFF.primary.ToString(), ref line);//"Reset Altitude: "
+      LineLabel(Localizer.Format("#VesselMover_AdjustAltitude") + " " + GameSettings.THROTTLE_UP.primary.ToString() + " " +//"Adjust Altitude: "
         GameSettings.THROTTLE_DOWN.primary.ToString(), ref line);
 
       helpHeight = (line * toolbarLineHeight) + (toolbarMargin * 2);

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using KSP.Localization;
 
 namespace VesselMover
 {
@@ -641,7 +642,7 @@ namespace VesselMover
       {
         ScreenMessages.RemoveMessage(_moveMessage);
       }
-      _moveMessage = ScreenMessages.PostScreenMessage("Mode : " + _moveMode.ToString(), 3, ScreenMessageStyle.UPPER_CENTER);
+      _moveMessage = ScreenMessages.PostScreenMessage(Localizer.Format("#VesselMover_SrcMsg", _moveMode.ToString()), 3, ScreenMessageStyle.UPPER_CENTER);//"Mode : " +
     }
 
     private Vector3 North()
